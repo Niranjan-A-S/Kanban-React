@@ -18,6 +18,7 @@ button {
   cursor: pointer;
 }
 
+  
 @keyframes moveInLeft {
   0% {
     opacity: 0%;

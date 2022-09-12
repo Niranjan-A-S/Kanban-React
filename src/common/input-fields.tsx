@@ -1,9 +1,6 @@
 import styled from "styled-components";
-import { Select } from "../../../../../common/Select";
 
-export const SelectType = styled(Select).attrs((props) => ({
-  required: true,
-}))`
+export const InputFields = styled.input`
   width: 10vw;
   height: 4vh;
   border: solid black;

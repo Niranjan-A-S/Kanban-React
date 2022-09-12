@@ -1,20 +1,20 @@
-import React, { MouseEvent } from "react";
+import React from "react";
 
-export interface CategoryProps {
+export interface ICategoryProps {
   category: string;
 }
 
-export interface CategoryTitleProps {
+export interface ICategoryTitleProps {
   children: string;
   category: string;
 }
 
-export interface CardPriorityTypes {
+export interface ICardPriorityTypes {
   children: string;
   type: string;
 }
 
-export interface CardDetailsType {
+export interface ICardDetailsType {
   id: number;
   avatar: string;
   name: string;
@@ -24,13 +24,16 @@ export interface CardDetailsType {
   status: "requested" | "in-progress" | "completed";
 }
 
-export interface CardContextType {
-  cardsArray: Array<CardDetailsType>;
-  // cardAdded: boolean;
-  // setCardAdded: React.Dispatch<React.SetStateAction<boolean>>;
-  setCardsArray: React.Dispatch<React.SetStateAction<Array<CardDetailsType>>>;
+export interface ICardContextType {
+  cardsArray?: ICardDetailsType[];
+  setCardsArray?: React.Dispatch<React.SetStateAction<Array<ICardDetailsType>>>;
+  sortCards?(sortValue: string): void;
 }
 
-// export interface DragEvent<T = Element> extends MouseEvent<T, NativeDragEvent> {
-//   dataTransfer: DataTransfer;
-// }
+export interface ISortValueContextType {
+  sortValue: string;
+}
+
+export const ItemTypes = {
+  CARD: "card",
+};

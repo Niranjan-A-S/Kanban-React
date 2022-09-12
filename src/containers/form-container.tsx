@@ -1,5 +1,5 @@
-import { AddTaskForm } from "../components/add-task-form/container/AddTaskForm";
 import styled from "styled-components";
+import { AddTaskForm } from "./add-task-form";
 
 const StyledFormContainer = styled.div`
   width: fit-content;
@@ -8,7 +8,7 @@ const StyledFormContainer = styled.div`
 export const FormContainer = (props: unknown) => {
   return (
     <StyledFormContainer>
-      <AddTaskForm />
+      <AddTaskForm/>
     </StyledFormContainer>
   );
 };

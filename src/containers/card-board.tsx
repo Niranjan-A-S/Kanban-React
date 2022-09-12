@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { CardCategoryContainer } from "../components/card-category/container/CardCategoryContainer";
+import { CardCategoryContainer } from "./card-category-container";
 
 const StyledCardBoard = styled.div`
   display: flex;
