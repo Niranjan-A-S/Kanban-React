@@ -1,27 +1,21 @@
-import { ChangeEvent, FormEvent, useContext, useState } from "react";
+import { FormEvent, useContext, useState } from "react";
 import styled from "styled-components";
-import { CardContext } from "../pages/kanban-board";
-import { Button, InputFields, Select } from "../common";
-import { SortValueContext } from "./header-container";
+import { CardContext } from "../context";
+import { Button, InputField, sortCards } from "../common";
+import { InputDescription, SelectType } from "../components";
 
 export const AddTaskForm = () => {
-  const { cardsArray, setCardsArray, sortCards } = useContext(CardContext);
-
-  const { sortValue } = useContext(SortValueContext);
-
+  const { cardsArray, setCardsArray } = useContext(CardContext);
   const [name, setName] = useState<string>("");
   const [priority, setPriority] = useState<number>(0);
-  const [type, setType] = useState<string>("*Type");
+  const [type, setType] = useState<string>("enhancement");
   const [description, setDescription] = useState<string>("");
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    sortCards && sortCards(sortValue);
-
-    setCardsArray &&
-      cardsArray &&
-      setCardsArray((prevArray) => [
+    setCardsArray((prevArray) => [
+      ...sortCards("highToLow", [
         ...prevArray,
         {
           name: name,
@@ -32,47 +26,46 @@ export const AddTaskForm = () => {
           status: "requested",
           id: cardsArray.length + 1,
         },
-      ]);
+      ]),
+    ]);
   };
 
   return (
-    <StyledForm onSubmit={handleSubmit}>
-      <InputName
+    <FormWrapper onSubmit={handleSubmit}>
+      <InputField
+        type="text"
+        placeholder="*Name"
+        required={true}
+        maxLength={15}
+        minLength={3}
         value={name}
-        onChange={(event: ChangeEvent<HTMLInputElement>) =>
-          setName(event.target.value)
-        }
+        onChange={(event) => setName(event.target.value)}
       />
-      <InputPriority
+      <InputField
+        type="number"
+        placeholder="*Priority"
+        required={true}
+        max={100}
+        min={0}
         value={priority}
-        onChange={(event: ChangeEvent<HTMLInputElement>) =>
-          setPriority(+event.target.value)
-        }
+        onChange={(event) => setPriority(+event.target.value)}
       />
       <SelectType
         value={type}
-        onChange={(event: ChangeEvent<HTMLSelectElement>) =>
-          setType(event.target.value)
-        }
-      >
-        <option disabled>*Type</option>
-        <option value={"enhancement"}>Enhancement</option>
-        <option value={"feature"}>Feature</option>
-        <option value={"bug"}>Bug</option>
-      </SelectType>
-      <InputDescription
-        value={description}
-        onChange={(event: ChangeEvent<HTMLTextAreaElement>) =>
-          setDescription(event.target.value)
-        }
+        onChange={(event) => setType(event.target.value)}
       />
-      <FormButton>Cancel</FormButton>
-      <FormButton>Save</FormButton>
-    </StyledForm>
+      <InputDescription
+        placeholder={"Describe Your Card.."}
+        value={description}
+        onChange={(event) => setDescription(event.target.value)}
+      />
+      <Button buttonName="Cancel" />
+      <Button buttonName="Save" />
+    </FormWrapper>
   );
 };
 
-const StyledForm = styled.form`
+const FormWrapper = styled.form`
   display: flex;
   gap: 1rem;
   margin: 2rem 0;
@@ -80,49 +73,4 @@ const StyledForm = styled.form`
   width: 34.2vw;
   flex-wrap: wrap;
   justify-content: flex-end;
-`;
-
-const InputName = styled(InputFields).attrs((props) => ({
-  type: "text",
-  placeholder: "*Name",
-  minLength: `${3}`,
-  maxLength: `${15}`,
-  required: true,
-}))``;
-
-const InputDescription = styled.textarea.attrs(() => ({
-  placeholder: "Describe your card...",
-  cols: 30,
-  rows: 4,
-}))`
-  border: solid black;
-  border-width: 0.05rem;
-  font-size: 1rem;
-  width: 100%;
-  resize: none;
-  height: 10vh;
-`;
-
-const InputPriority = styled(InputFields).attrs(() => ({
-  type: "number",
-  placeholder: "*Priority",
-  max: `${100}`,
-  min: `${1}`,
-  required: true,
-}))``;
-
-const SelectType = styled(Select).attrs((props) => ({
-  required: true,
-}))`
-  width: 10vw;
-  height: 4vh;
-  border: solid black;
-  border-width: 0.05rem;
-  font-size: 1rem;
-`;
-
-const FormButton = styled(Button)`
-  height: 5vh;
-  width: 5vw;
-  font-size: 1rem;
 `;

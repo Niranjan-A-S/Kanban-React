@@ -11,7 +11,6 @@ body {
   font-family: Inter, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
     Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-sans;
   font-style: inter;
-  font-size: 10px;
 }
 
 button {

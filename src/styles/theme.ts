@@ -1,4 +1,4 @@
-import { CardStateColors, CardTypeColors } from "../types/cardEnums";
+import { CardStateColors, CardTypeColors } from "../types";
 
 export const theme = {
   categoryColors: {
