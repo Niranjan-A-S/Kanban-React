@@ -1,4 +1,4 @@
-import { memo, useEffect, useState } from "react";
+import { memo, useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 import { CardCategoryContainer, FormContainer, Toolbar } from "../containers";
 import GlobalStyles from "../styles/globalStyle";
@@ -9,18 +9,39 @@ import { CardContext } from "../context";
 export const KanbanContainer = memo(() => {
   const [cardsArray, setCardsArray] = useState<ICardDetailsType[]>([]);
 
+  const [sortValue, setSortValue] = useState<string>(
+    CardSortCriterion.HIGHTOLOW
+  );
+
+  const prepareCards = useCallback(
+    (data: ICardDetailsType[]) => {
+      sortCards(sortValue, data);
+      setCardsArray(data);
+    },
+    [sortValue]
+  );
+
+  const onSort = useCallback(
+    (value: string) => {
+      setSortValue(value);
+      sortCards(value, cardsArray);
+    },
+    [cardsArray]
+  );
+
   useEffect(() => {
     fetch("https://6319a5318e51a64d2be8c353.mockapi.io/card")
       .then((cardData) => cardData.json())
-      .then((cardsArray) => sortCards(CardSortCriterion.HIGHTOLOW, cardsArray))
-      .then((sortedArray) => setCardsArray([...sortedArray]));
-  }, []);
+      .then((cardsArray) => prepareCards(cardsArray));
+  }, [prepareCards]);
 
   return (
     <CardContext.Provider
       value={{
         cardsArray: cardsArray,
-        setCardsArray: setCardsArray,
+        setCards: prepareCards,
+        sortValue: sortValue,
+        setSortValue: onSort,
       }}
     >
       <Container>
@@ -41,7 +62,7 @@ const Container = styled.div`
 `;
 
 const TitleWrapper = styled.h1`
-  color: #222c42;
+  color: #4b7be5;
   font-size: 30px;
   text-align: center;
   margin: 20px 0;

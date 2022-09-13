@@ -1,6 +1,7 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useContext } from "react";
 import styled from "styled-components";
 import { Button, SelectField } from "../common";
+import { CardContext } from "../context";
 
 const optionsArray = [
   {
@@ -14,7 +15,7 @@ const optionsArray = [
 ];
 
 export const Toolbar = () => {
-  const [sortValue, setSortValue] = useState<string>("highToLow");
+  const { setSortValue } = useContext(CardContext);
 
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
     setSortValue(event.target.value);
@@ -23,11 +24,7 @@ export const Toolbar = () => {
   return (
     <ToolbarContainer>
       <Button buttonName="Add Task" />
-      <SelectField
-        optionsArray={optionsArray}
-        value={sortValue}
-        handleChange={handleChange}
-      />
+      <SelectField optionsArray={optionsArray} handleChange={handleChange} />
     </ToolbarContainer>
   );
 };

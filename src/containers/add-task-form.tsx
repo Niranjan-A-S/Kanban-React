@@ -1,7 +1,7 @@
 import { FormEvent, useContext, useState } from "react";
 import styled from "styled-components";
 import { CardContext } from "../context";
-import { Button, InputField, SelectField, sortCards } from "../common";
+import { Button, InputField, SelectField } from "../common";
 import { InputDescription } from "../components";
 
 const optionsArray = [
@@ -20,7 +20,7 @@ const optionsArray = [
 ];
 
 export const AddTaskForm = () => {
-  const { cardsArray, setCardsArray } = useContext(CardContext);
+  const { cardsArray, setCards } = useContext(CardContext);
   const [name, setName] = useState<string>("");
   const [priority, setPriority] = useState<number>(0);
   const [type, setType] = useState<string>("enhancement");
@@ -29,19 +29,17 @@ export const AddTaskForm = () => {
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    setCardsArray((prevArray) => [
-      ...sortCards("highToLow", [
-        ...prevArray,
-        {
-          name: name,
-          avatar: "https://cdn-icons-png.flaticon.com/512/1177/1177568.png",
-          description: description,
-          priority: priority,
-          type: type,
-          status: "requested",
-          id: cardsArray.length + 1,
-        },
-      ]),
+    setCards([
+      ...cardsArray,
+      {
+        name: name,
+        avatar: "https://cdn-icons-png.flaticon.com/512/1177/1177568.png",
+        description: description,
+        priority: priority,
+        type: type,
+        status: "requested",
+        id: cardsArray.length + 1,
+      },
     ]);
   };
 
@@ -67,7 +65,6 @@ export const AddTaskForm = () => {
       />
       <SelectField
         optionsArray={optionsArray}
-        value={type}
         handleChange={(event) => setType(event.target.value)}
       />
       <InputDescription

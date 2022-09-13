@@ -8,15 +8,17 @@ interface IOptions {
 
 interface ISelectField {
   optionsArray: Array<IOptions>;
-  value: string;
   handleChange(event: ChangeEvent<HTMLSelectElement>): void;
 }
 
 export const SelectField = (props: ISelectField) => {
-  const { optionsArray, value, handleChange } = props;
+  const { optionsArray, handleChange } = props;
 
   return (
-    <SelectFieldWrapper value={value} onChange={handleChange}>
+    <SelectFieldWrapper
+      defaultValue={optionsArray[0].value}
+      onChange={handleChange}
+    >
       {optionsArray.map((option) => (
         <option key={option.value} value={option.value}>
           {option.label}

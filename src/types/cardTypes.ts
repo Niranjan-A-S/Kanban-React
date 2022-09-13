@@ -5,16 +5,14 @@ export interface ICardDetailsType {
   description: string;
   priority: number;
   type: string;
-  status: "requested" | "in-progress" | "completed";
+  status: string;
 }
 
 export interface ICardContextType {
   cardsArray: ICardDetailsType[];
-  setCardsArray: React.Dispatch<React.SetStateAction<Array<ICardDetailsType>>>;
-}
-
-export interface ISortValueContextType {
+  setCards: (data: ICardDetailsType[]) => void;
   sortValue: string;
+  setSortValue: (sortValue: string) => void;
 }
 
 export enum CardStateColors {

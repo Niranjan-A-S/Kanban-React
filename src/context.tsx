@@ -3,5 +3,7 @@ import { ICardContextType } from "./types";
 
 export const CardContext = createContext<ICardContextType>({
   cardsArray: [],
-  setCardsArray: () => {},
+  setCards: () => {},
+  sortValue: "",
+  setSortValue: () => {},
 });
