@@ -17,5 +17,4 @@ const ButtonWrapper = styled.button`
   border: none;
   padding: 7px 15px;
   font-size: 17px;
-  margin-left: 50px;
 `;

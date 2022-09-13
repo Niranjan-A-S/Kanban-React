@@ -52,7 +52,7 @@ const CardDescription = styled.p`
   display: -webkit-box;
   text-overflow: ellipsis;
   overflow: hidden;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
   word-wrap: break-word;
   max-width: 270px;
   min-height: 80px;

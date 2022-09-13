@@ -1,8 +1,23 @@
 import { FormEvent, useContext, useState } from "react";
 import styled from "styled-components";
 import { CardContext } from "../context";
-import { Button, InputField, sortCards } from "../common";
-import { InputDescription, SelectType } from "../components";
+import { Button, InputField, SelectField, sortCards } from "../common";
+import { InputDescription } from "../components";
+
+const optionsArray = [
+  {
+    label: "Enhancement",
+    value: "enhancement",
+  },
+  {
+    label: "Feature",
+    value: "feature",
+  },
+  {
+    label: "Bug",
+    value: "bug",
+  },
+];
 
 export const AddTaskForm = () => {
   const { cardsArray, setCardsArray } = useContext(CardContext);
@@ -50,9 +65,10 @@ export const AddTaskForm = () => {
         value={priority}
         onChange={(event) => setPriority(+event.target.value)}
       />
-      <SelectType
+      <SelectField
+        optionsArray={optionsArray}
         value={type}
-        onChange={(event) => setType(event.target.value)}
+        handleChange={(event) => setType(event.target.value)}
       />
       <InputDescription
         placeholder={"Describe Your Card.."}

@@ -79,6 +79,7 @@ const CardsContainer = styled.div<{ category: string }>`
   align-items: center;
   overflow-y: auto;
   overflow-x: hidden;
+  width: 360px;
   &&::-webkit-scrollbar {
     width: 10px;
   }
