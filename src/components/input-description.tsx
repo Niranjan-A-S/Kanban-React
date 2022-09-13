@@ -21,8 +21,8 @@ export const InputDescription = (props: IInputDescription) => {
 
 const InputDescriptionWrapper = styled.textarea`
   border: solid black;
-  border-width: 0.05rem;
-  font-size: 1rem;
+  border-width: 1px;
+  font-size: 16px;
   width: 100%;
   resize: none;
   height: 10vh;

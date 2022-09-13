@@ -42,9 +42,9 @@ export const InputField = (props: IInputField) => {
 };
 
 const InputFieldWrapper = styled.input`
-  width: 10vw;
-  height: 4vh;
+  width: 152px;
+  height: 30px;
   border: solid black;
-  border-width: 0.05rem;
-  font-size: 1rem;
+  border-width: 1px;
+  font-size: 16px;
 `;

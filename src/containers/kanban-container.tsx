@@ -41,7 +41,7 @@ const Container = styled.div`
 `;
 
 const TitleWrapper = styled.h1`
-  color: #4b7be5;
+  color: #222c42;
   font-size: 30px;
   text-align: center;
   margin: 20px 0;
@@ -51,5 +51,5 @@ const CardBoardWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
-  padding: 2.5rem;
+  padding: 50px;
 `;

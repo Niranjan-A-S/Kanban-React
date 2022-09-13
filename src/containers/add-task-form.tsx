@@ -68,9 +68,8 @@ export const AddTaskForm = () => {
 const FormWrapper = styled.form`
   display: flex;
   gap: 1rem;
-  margin: 2rem 0;
   padding: 1rem;
-  width: 34.2vw;
+  width: 525px;
   flex-wrap: wrap;
-  justify-content: flex-end;
+  justify-content: flex-end; ;
 `;

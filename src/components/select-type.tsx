@@ -19,9 +19,9 @@ export const SelectType = (props: ISelectType) => {
 };
 
 const SelectTypeWrapper = styled.select`
-  width: 10vw;
-  height: 4vh;
+  width: 155px;
+  height: 30px;
   border: solid black;
-  border-width: 0.05rem;
-  font-size: 1rem;
+  border-width: 1px;
+  font-size: 16px;
 `;

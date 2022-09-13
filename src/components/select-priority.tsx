@@ -20,7 +20,8 @@ export const SelectPriority = (props: ISelectPriority) => {
 
 const SelectPriorityWrapper = styled.select`
   border: solid black;
-  border-width: 0.05rem;
-  padding: 0.25rem 0.5rem;
-  font-size: 1rem;
+  border-width: 1px;
+  padding: 7px 10px;
+  font-size: 17px;
+  margin-right: 50px;
 `;

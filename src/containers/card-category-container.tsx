@@ -66,25 +66,21 @@ const CardCategoryTitle = styled.h1<{ children: string; category: string }>`
   width: 100%;
   text-align: center;
   text-transform: uppercase;
-  letter-spacing: 0.09rem;
-  font-size: 1.2rem;
-  padding: 0.1rem;
+  letter-spacing: 2px;
+  font-size: 20px;
+  padding: 5px 0;
   color: #fff;
   background-color: ${({ theme, category }) => theme.categoryColors[category]};
 `;
 
 const CardsContainer = styled.div<{ category: string }>`
-  padding: 2rem;
-  width: 25vw;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
+  padding: 30px;
+  height: 700px;
   align-items: center;
   overflow-y: auto;
   overflow-x: hidden;
   &&::-webkit-scrollbar {
-    width: 0.5rem;
+    width: 10px;
   }
   &&::-webkit-scrollbar-track {
     background: #fff;
