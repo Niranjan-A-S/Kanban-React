@@ -15,15 +15,19 @@ const optionsArray = [
 ];
 
 export const Toolbar = () => {
-  const { setSortValue } = useContext(CardContext);
+  const { setSortValue, setDisplay } = useContext(CardContext);
 
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
     setSortValue(event.target.value);
   };
 
+  const displayFormOnClick = () => {
+    setDisplay(true);
+  };
+
   return (
     <ToolbarContainer>
-      <Button buttonName="Add Task" />
+      <Button buttonName="Add Task" handleClick={displayFormOnClick} />
       <SelectField optionsArray={optionsArray} handleChange={handleChange} />
     </ToolbarContainer>
   );

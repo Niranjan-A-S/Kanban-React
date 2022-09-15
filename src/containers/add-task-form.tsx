@@ -1,10 +1,15 @@
-import { FormEvent, useContext, useState } from "react";
+import { FormEvent, useContext, useState, MouseEvent } from "react";
 import styled from "styled-components";
 import { CardContext } from "../context";
 import { Button, InputField, SelectField } from "../common";
 import { InputDescription } from "../components";
+import React from "react";
 
 const optionsArray = [
+  {
+    label: "*Type",
+    value: "",
+  },
   {
     label: "Enhancement",
     value: "enhancement",
@@ -26,6 +31,8 @@ export const AddTaskForm = () => {
   const [type, setType] = useState<string>("enhancement");
   const [description, setDescription] = useState<string>("");
 
+  const { setDisplay } = useContext(CardContext);
+
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -41,6 +48,15 @@ export const AddTaskForm = () => {
         id: cardsArray.length + 1,
       },
     ]);
+
+    setName("");
+    setPriority(0);
+    setDescription("");
+  };
+
+  const hideFormOnClick = (event: MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    setDisplay(false);
   };
 
   return (
@@ -72,7 +88,7 @@ export const AddTaskForm = () => {
         value={description}
         onChange={(event) => setDescription(event.target.value)}
       />
-      <Button buttonName="Cancel" />
+      <Button buttonName="Cancel" handleClick={hideFormOnClick} />
       <Button buttonName="Save" />
     </FormWrapper>
   );

@@ -17,6 +17,10 @@ button {
   cursor: pointer;
 }
 
+animate{
+  animation:moveInRight 1s;
+  background-color:black;
+}
   
 @keyframes moveInLeft {
   0% {

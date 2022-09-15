@@ -13,6 +13,7 @@ export interface ICardContextType {
   setCards: (data: ICardDetailsType[]) => void;
   sortValue: string;
   setSortValue: (sortValue: string) => void;
+  setDisplay: (displayForm: boolean) => void;
 }
 
 export enum CardStateColors {

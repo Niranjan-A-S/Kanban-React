@@ -1,6 +1,11 @@
 import { memo, useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
-import { CardCategoryContainer, FormContainer, Toolbar } from "../containers";
+import {
+  CardCategoryContainer,
+  FormContainer,
+  Toolbar,
+  OverlayContainer,
+} from "../containers";
 import GlobalStyles from "../styles/globalStyle";
 import { CardSortCriterion, ICardDetailsType } from "../types";
 import { sortCards } from "../common/utils";
@@ -12,6 +17,8 @@ export const KanbanContainer = memo(() => {
   const [sortValue, setSortValue] = useState<string>(
     CardSortCriterion.HIGHTOLOW
   );
+
+  const [display, setDisplay] = useState<boolean>(false);
 
   const prepareCards = useCallback(
     (data: ICardDetailsType[]) => {
@@ -42,13 +49,15 @@ export const KanbanContainer = memo(() => {
         setCards: prepareCards,
         sortValue: sortValue,
         setSortValue: onSort,
+        setDisplay: setDisplay,
       }}
     >
+      <OverlayContainer display={display} />
       <Container>
         <GlobalStyles />
         <TitleWrapper>Kanban Board</TitleWrapper>
         <Toolbar />
-        <FormContainer />
+        <FormContainer displayForm={display} animate={true} />
         <CardBoardWrapper>
           <CardCategoryContainer />
         </CardBoardWrapper>

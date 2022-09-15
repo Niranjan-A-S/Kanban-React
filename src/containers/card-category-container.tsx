@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import React, { useContext } from "react";
+import React, { useContext, memo } from "react";
 import { Card } from "../components";
 import { CardContext } from "../context";
 import { CardStates } from "../types";
 
-export const CardCategoryContainer = () => {
+export const CardCategoryContainer = memo(() => {
   const { cardsArray } = useContext(CardContext);
 
   return (
@@ -52,7 +52,7 @@ export const CardCategoryContainer = () => {
       </CardCategoryContainerWrapper>
     </>
   );
-};
+});
 
 const CardCategoryContainerWrapper = styled.div<{ category: string }>`
   display: flex;

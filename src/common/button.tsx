@@ -1,14 +1,15 @@
+import { MouseEvent } from "react";
 import styled from "styled-components";
 
 interface IButton {
   buttonName: string;
-  className?: string;
+  handleClick?(event?: MouseEvent<HTMLButtonElement>): void;
 }
 
 export const Button = (props: IButton) => {
-  const { buttonName, className } = props;
+  const { buttonName, handleClick } = props;
 
-  return <ButtonWrapper className={className}>{buttonName}</ButtonWrapper>;
+  return <ButtonWrapper onClick={handleClick}>{buttonName}</ButtonWrapper>;
 };
 
 const ButtonWrapper = styled.button`
