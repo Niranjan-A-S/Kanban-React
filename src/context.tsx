@@ -5,6 +5,6 @@ export const CardContext = createContext<ICardContextType>({
   cardsArray: [],
   setCards: () => {},
   sortValue: "",
-  setSortValue: () => {},
+  onSort: () => {},
   setDisplay: () => {},
 });

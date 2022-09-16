@@ -12,7 +12,7 @@ export interface ICardContextType {
   cardsArray: ICardDetailsType[];
   setCards: (data: ICardDetailsType[]) => void;
   sortValue: string;
-  setSortValue: (sortValue: string) => void;
+  onSort: (sortValue: string) => void;
   setDisplay: (displayForm: boolean) => void;
 }
 
@@ -38,3 +38,7 @@ export enum CardSortCriterion {
   HIGHTOLOW = "highToLow",
   LOWTOHIGH = "lowToHigh",
 }
+
+export const ItemType = {
+  CARD: "card",
+};

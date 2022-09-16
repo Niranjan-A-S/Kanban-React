@@ -1,18 +1,17 @@
 import styled from "styled-components";
-import { AddTaskForm } from "./add-task-form";
+import { AddCardForm } from "../components";
 
 interface IFormContainer {
   displayForm: boolean;
-  animate: boolean;
 }
 
 export const FormContainer = (props: IFormContainer): any => {
-  const { displayForm, animate } = props;
+  const { displayForm } = props;
 
   return (
     displayForm && (
-      <StyledFormContainer className={animate ? "animate" : "no"}>
-        <AddTaskForm />
+      <StyledFormContainer>
+        <AddCardForm />
       </StyledFormContainer>
     )
   );

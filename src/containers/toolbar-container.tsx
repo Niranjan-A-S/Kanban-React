@@ -15,10 +15,10 @@ const optionsArray = [
 ];
 
 export const Toolbar = () => {
-  const { setSortValue, setDisplay } = useContext(CardContext);
+  const { onSort, setDisplay } = useContext(CardContext);
 
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    setSortValue(event.target.value);
+    onSort(event.target.value);
   };
 
   const displayFormOnClick = () => {

@@ -8,20 +8,27 @@ import {
 } from "../containers";
 import GlobalStyles from "../styles/globalStyle";
 import { CardSortCriterion, ICardDetailsType } from "../types";
-import { sortCards } from "../common/utils";
+import { sortCards } from "../common";
 import { CardContext } from "../context";
 
 export const KanbanContainer = memo(() => {
   const [cardsArray, setCardsArray] = useState<ICardDetailsType[]>([]);
+  const [display, setDisplay] = useState<boolean>(false);
 
   const [sortValue, setSortValue] = useState<string>(
     CardSortCriterion.HIGHTOLOW
   );
 
-  const [display, setDisplay] = useState<boolean>(false);
+  useEffect(() => {
+    fetch("https://6319a5318e51a64d2be8c353.mockapi.io/card")
+      .then((cardData) => cardData.json())
+      .then((cardsArray) => prepareCards(cardsArray));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const prepareCards = useCallback(
     (data: ICardDetailsType[]) => {
+      console.log("prepareCards ", sortValue);
       sortCards(sortValue, data);
       setCardsArray(data);
     },
@@ -30,44 +37,42 @@ export const KanbanContainer = memo(() => {
 
   const onSort = useCallback(
     (value: string) => {
+      console.log("value ", value);
       setSortValue(value);
       sortCards(value, cardsArray);
     },
     [cardsArray]
   );
 
-  useEffect(() => {
-    fetch("https://6319a5318e51a64d2be8c353.mockapi.io/card")
-      .then((cardData) => cardData.json())
-      .then((cardsArray) => prepareCards(cardsArray));
-  }, [prepareCards]);
-
   return (
-    <CardContext.Provider
-      value={{
-        cardsArray: cardsArray,
-        setCards: prepareCards,
-        sortValue: sortValue,
-        setSortValue: onSort,
-        setDisplay: setDisplay,
-      }}
-    >
-      <OverlayContainer display={display} />
-      <Container>
-        <GlobalStyles />
-        <TitleWrapper>Kanban Board</TitleWrapper>
-        <Toolbar />
-        <FormContainer displayForm={display} animate={true} />
-        <CardBoardWrapper>
-          <CardCategoryContainer />
-        </CardBoardWrapper>
-      </Container>
-    </CardContext.Provider>
+    <div>
+      <CardContext.Provider
+        value={{
+          cardsArray: cardsArray,
+          setCards: prepareCards,
+          sortValue: sortValue,
+          onSort: onSort,
+          setDisplay: setDisplay,
+        }}
+      >
+        <OverlayContainer display={display} />
+        <Container>
+          <GlobalStyles />
+          <TitleWrapper>Kanban Board</TitleWrapper>
+          <Toolbar />
+          <FormContainer displayForm={display} />
+          <CardBoardWrapper>
+            <CardCategoryContainer />
+          </CardBoardWrapper>
+        </Container>
+      </CardContext.Provider>
+    </div>
   );
 });
 
 const Container = styled.div`
   position: relative;
+  margin: 0;
 `;
 
 const TitleWrapper = styled.h1`

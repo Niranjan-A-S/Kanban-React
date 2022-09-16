@@ -1,11 +1,68 @@
+import { useContext, memo, useCallback } from "react";
 import styled from "styled-components";
-import React, { useContext, memo } from "react";
-import { Card } from "../components";
+import { useDrop } from "react-dnd";
+import { CardStates, ItemType } from "../types";
 import { CardContext } from "../context";
-import { CardStates } from "../types";
+import { Card } from "../components";
+
+interface IDragItem {
+  id: number;
+  status: string;
+}
 
 export const CardCategoryContainer = memo(() => {
-  const { cardsArray } = useContext(CardContext);
+  const { cardsArray, setCards } = useContext(CardContext);
+
+  const [, req] = useDrop(
+    () => ({
+      accept: ItemType.CARD,
+      drop: (item: IDragItem, monitor) => {
+        dropCard(item, "in-progress", "requested");
+      },
+      collect: (monitor) => ({
+        isOver: !!monitor.isOver(),
+      }),
+    }),
+    [cardsArray]
+  );
+
+  const [, prog] = useDrop(
+    () => ({
+      accept: ItemType.CARD,
+      drop: (item: IDragItem, monitor) => {
+        dropCard(item, "requested", "in-progress");
+      },
+      collect: (monitor) => ({
+        isOver: !!monitor.isOver(),
+      }),
+    }),
+    [cardsArray]
+  );
+
+  const [, comp] = useDrop(
+    () => ({
+      accept: ItemType.CARD,
+      drop: (item: IDragItem, monitor) => {
+        dropCard(item, "in-progress", "completed");
+      },
+      collect: (monitor) => ({
+        isOver: !!monitor.isOver(),
+      }),
+    }),
+    [cardsArray]
+  );
+
+  const dropCard = useCallback(
+    (item: IDragItem, validStatus: string, newStatus: string) => {
+      for (let card of cardsArray) {
+        card.id === item.id &&
+          card.status === validStatus &&
+          (card.status = newStatus);
+      }
+      setCards(cardsArray);
+    },
+    [cardsArray, setCards]
+  );
 
   return (
     <>
@@ -14,7 +71,7 @@ export const CardCategoryContainer = memo(() => {
           children={CardStates.REQUESTED}
           category="requested"
         />
-        <CardsContainer category="requested">
+        <CardsContainer category="requested" ref={req}>
           {cardsArray?.map((card) => {
             return (
               card.status === "requested" && <Card key={card.id} item={card} />
@@ -27,7 +84,7 @@ export const CardCategoryContainer = memo(() => {
           children={CardStates.INPROGRESS}
           category="inProgress"
         />
-        <CardsContainer category="inProgress">
+        <CardsContainer category="inProgress" ref={prog}>
           {cardsArray?.map((card) => {
             return (
               card.status === "in-progress" && (
@@ -42,7 +99,7 @@ export const CardCategoryContainer = memo(() => {
           children={CardStates.COMPLETED}
           category="completed"
         />
-        <CardsContainer category="completed">
+        <CardsContainer category="completed" ref={comp}>
           {cardsArray?.map((card) => {
             return (
               card.status === "completed" && <Card key={card.id} item={card} />

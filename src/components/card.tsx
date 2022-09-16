@@ -1,6 +1,7 @@
 import { memo } from "react";
 import styled from "styled-components";
-import { ICardDetailsType } from "../types";
+import { useDrag } from "react-dnd";
+import { ICardDetailsType, ItemType } from "../types";
 
 interface ICard {
   item: ICardDetailsType;
@@ -8,15 +9,23 @@ interface ICard {
 
 export const Card = memo((props: ICard) => {
   const {
-    item: { avatar, id, name, priority, description, type },
+    item: { avatar, id, name, priority, description, type, status },
   } = props;
 
+  const [, drag] = useDrag(() => ({
+    item: { id, status },
+    type: ItemType.CARD,
+    collect: (monitor) => ({
+      isDragging: !!monitor.isDragging(),
+    }),
+  }));
+
   return (
-    <CardWrapper type={type} key={id}>
-      <CardAvatar unselectable="on" src={avatar} />
-      <CardName unselectable="on" children={name} />
-      <CardDescription unselectable="on" children={description} />
-      <CardPriority children={`Priority : ${priority}`} type={type} />
+    <CardWrapper ref={drag} type={type} key={id}>
+      <CardAvatar src={avatar} />
+      <CardName children={name} />
+      <CardDescription children={description} />
+      <CardPriority required children={`Priority : ${priority}`} type={type} />
     </CardWrapper>
   );
 });
@@ -55,12 +64,13 @@ const CardDescription = styled.p`
   -webkit-line-clamp: 4;
   word-wrap: break-word;
   max-width: 270px;
-  min-height: 80px;
+  min-height: 20px;
   max-height: 130px;
   -webkit-box-orient: vertical;
+  margin: auto 0;
 `;
 
-const CardPriority = styled.p<{ type: string }>`
+const CardPriority = styled.p<{ type: string; required: true }>`
   font-weight: 600;
   font-size: 15px;
   height: fit-content;
