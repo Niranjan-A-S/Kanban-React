@@ -3,10 +3,16 @@ import styled from "styled-components";
 export const LoaderContainer = () => {
   return (
     <LoaderContainerWrapper>
+      <LoadingTitle children="Loading..." />
       <Spinner />
     </LoaderContainerWrapper>
   );
 };
+
+const LoadingTitle = styled.h1<{ children: string }>`
+  color: #fff;
+  margin-right: 30px;
+`;
 
 const LoaderContainerWrapper = styled.div`
   width: 100%;
@@ -27,7 +33,7 @@ const Spinner = styled.div`
   width: 70px;
   height: 70px;
   border: 3px solid;
-  border-color: #4b7be5 transparent #4b7be5 transparent;
+  border-color: #fff transparent #4b7be5 transparent;
   border-radius: 100%;
   animation: spin-anim 1.2s linear infinite;
   @keyframes spin-anim {

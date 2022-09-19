@@ -45,7 +45,7 @@ export const AddCardForm = () => {
       ...cardsArray,
       {
         name: name,
-        avatar: "https://cdn-icons-png.flaticon.com/512/1177/1177568.png",
+        avatar: "https://i.pravatar.cc/300",
         description: description,
         priority: priority,
         type: type,
