@@ -1,7 +1,14 @@
 import { FormEvent, useContext, useState, MouseEvent } from "react";
 import styled from "styled-components";
 import { CardContext } from "../context";
-import { Button, InputField, SelectField, InputDescription } from "../common";
+import {
+  Button,
+  InputField,
+  SelectField,
+  InputDescription,
+  sortCards,
+} from "../common";
+import { ICardDetailsType } from "../types";
 
 const optionsArray = [
   {
@@ -23,7 +30,8 @@ const optionsArray = [
 ];
 
 export const AddCardForm = () => {
-  const { cardsArray, setCards, setDisplay } = useContext(CardContext);
+  const { cardsArray, setCards, setDisplay, sortValue } =
+    useContext(CardContext);
 
   const [name, setName] = useState<string>("");
   const [priority, setPriority] = useState<number>(0);
@@ -33,7 +41,7 @@ export const AddCardForm = () => {
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    setCards([
+    let newCardArray: ICardDetailsType[] = [
       ...cardsArray,
       {
         name: name,
@@ -44,7 +52,11 @@ export const AddCardForm = () => {
         status: "requested",
         id: cardsArray.length + 1,
       },
-    ]);
+    ];
+
+    sortCards(sortValue, newCardArray);
+
+    setCards(newCardArray);
 
     setDisplay(false);
   };

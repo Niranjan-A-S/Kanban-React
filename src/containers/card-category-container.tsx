@@ -4,6 +4,7 @@ import { useDrop } from "react-dnd";
 import { CardStates, ItemType } from "../types";
 import { CardContext } from "../context";
 import { Card } from "../components";
+import { sortCards } from "../common";
 
 interface IDragItem {
   id: number;
@@ -11,7 +12,7 @@ interface IDragItem {
 }
 
 export const CardCategoryContainer = memo(() => {
-  const { cardsArray, setCards } = useContext(CardContext);
+  const { cardsArray, setCards, sortValue } = useContext(CardContext);
 
   const [, req] = useDrop(
     () => ({
@@ -59,9 +60,11 @@ export const CardCategoryContainer = memo(() => {
           card.status === validStatus &&
           (card.status = newStatus);
       }
+      console.log(sortValue, "drop");
+      sortCards(sortValue, cardsArray);
       setCards(cardsArray);
     },
-    [cardsArray, setCards]
+    [cardsArray, setCards, sortValue]
   );
 
   return (

@@ -22,7 +22,8 @@ export const KanbanContainer = memo(() => {
   useEffect(() => {
     fetch("https://6319a5318e51a64d2be8c353.mockapi.io/card")
       .then((cardData) => cardData.json())
-      .then((cardsArray) => prepareCards(cardsArray));
+      .then((cardsArray) => prepareCards(cardsArray))
+      .catch((error) => alert(error));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -49,7 +50,7 @@ export const KanbanContainer = memo(() => {
       <CardContext.Provider
         value={{
           cardsArray: cardsArray,
-          setCards: prepareCards,
+          setCards: setCardsArray,
           sortValue: sortValue,
           onSort: onSort,
           setDisplay: setDisplay,
