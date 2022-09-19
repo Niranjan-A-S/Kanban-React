@@ -15,12 +15,14 @@ export const CardCategoryContainer = memo(() => {
   const { cardsArray, setCards, sortValue } = useContext(CardContext);
 
   const dropCard = useCallback(
-    (item: IDragItem, validStatus: string, newStatus: string) => {
-      for (let card of cardsArray) {
+    (item: IDragItem, currentStatus: string, newStatus: string) => {
+      cardsArray.map((card) => {
         card.id === item.id &&
-          card.status === validStatus &&
+          card.status === currentStatus &&
           (card.status = newStatus);
-      }
+        return card;
+      });
+
       sortCards(sortValue, cardsArray);
       setCards(cardsArray);
     },

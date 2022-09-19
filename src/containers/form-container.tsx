@@ -1,19 +1,11 @@
 import styled from "styled-components";
 import { AddCardForm } from "../components";
 
-interface IFormContainer {
-  displayForm: boolean;
-}
-
-export const FormContainer = (props: IFormContainer): any => {
-  const { displayForm } = props;
-
+export const FormContainer = () => {
   return (
-    displayForm && (
-      <StyledFormContainer>
-        <AddCardForm />
-      </StyledFormContainer>
-    )
+    <StyledFormContainer>
+      <AddCardForm />
+    </StyledFormContainer>
   );
 };
 
@@ -22,7 +14,7 @@ const StyledFormContainer = styled.div`
   margin: 20px 0;
   position: fixed;
   right: 0;
-  animation: moveInLeft .5s;
+  animation: moveInLeft 0.5s;
   background-color: #fff;
   z-index: 2;
 `;

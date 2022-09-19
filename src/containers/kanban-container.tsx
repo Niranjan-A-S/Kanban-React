@@ -5,6 +5,7 @@ import {
   FormContainer,
   Toolbar,
   OverlayContainer,
+  LoaderContainer,
 } from "../containers";
 import GlobalStyles from "../styles/globalStyle";
 import { CardSortCriterion, ICardDetailsType } from "../types";
@@ -14,6 +15,7 @@ import { CardContext } from "../context";
 export const KanbanContainer = memo(() => {
   const [cardsArray, setCardsArray] = useState<ICardDetailsType[]>([]);
   const [display, setDisplay] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const [sortValue, setSortValue] = useState<string>(
     CardSortCriterion.HIGHTOLOW
@@ -22,8 +24,10 @@ export const KanbanContainer = memo(() => {
   useEffect(() => {
     fetch("https://6319a5318e51a64d2be8c353.mockapi.io/card")
       .then((cardData) => cardData.json())
-      .then((cardsArray) => prepareCards(cardsArray))
-      .catch((error) => alert(error));
+      .then((cardsArray) => {
+        setLoading(false);
+        prepareCards(cardsArray);
+      });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -55,15 +59,19 @@ export const KanbanContainer = memo(() => {
         }}
       >
         <OverlayContainer display={display} />
-        <Container>
-          <GlobalStyles />
-          <TitleWrapper>Kanban Board</TitleWrapper>
-          <Toolbar />
-          <FormContainer displayForm={display} />
-          <CardBoardWrapper>
-            <CardCategoryContainer />
-          </CardBoardWrapper>
-        </Container>
+        {loading ? (
+          <LoaderContainer />
+        ) : (
+          <Container>
+            <GlobalStyles />
+            <TitleWrapper>Kanban Board</TitleWrapper>
+            <Toolbar />
+            {display && <FormContainer />}
+            <CardBoardWrapper>
+              <CardCategoryContainer />
+            </CardBoardWrapper>
+          </Container>
+        )}
       </CardContext.Provider>
     </div>
   );
