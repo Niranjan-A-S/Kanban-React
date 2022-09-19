@@ -19,7 +19,6 @@ export const Toolbar = () => {
 
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
     onSort(event.target.value);
-    console.log(sortValue);
   };
 
   const displayFormOnClick = () => {
@@ -29,7 +28,11 @@ export const Toolbar = () => {
   return (
     <ToolbarContainer>
       <Button buttonName="Add Task" handleClick={displayFormOnClick} />
-      <SelectField optionsArray={optionsArray} handleChange={handleChange} />
+      <SelectField
+        sortValue={sortValue}
+        optionsArray={optionsArray}
+        onChange={handleChange}
+      />
     </ToolbarContainer>
   );
 };

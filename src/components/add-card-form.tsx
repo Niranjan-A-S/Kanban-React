@@ -34,14 +34,14 @@ export const AddCardForm = () => {
     useContext(CardContext);
 
   const [name, setName] = useState<string>("");
-  const [priority, setPriority] = useState<number>(0);
-  const [type, setType] = useState<string>("enhancement");
+  const [priority, setPriority] = useState<any>();
+  const [type, setType] = useState<string>("");
   const [description, setDescription] = useState<string>("");
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    let newCardArray: ICardDetailsType[] = [
+    let newCardsArray: ICardDetailsType[] = [
       ...cardsArray,
       {
         name: name,
@@ -54,9 +54,9 @@ export const AddCardForm = () => {
       },
     ];
 
-    sortCards(sortValue, newCardArray);
+    sortCards(sortValue, newCardsArray);
 
-    setCards(newCardArray);
+    setCards(newCardsArray);
 
     setDisplay(false);
   };
@@ -84,11 +84,12 @@ export const AddCardForm = () => {
         max={100}
         min={0}
         value={priority}
-        onChange={(event) => setPriority(+event.target.value)}
+        onChange={(event) => setPriority(parseInt(event.target.value))}
       />
       <SelectField
         optionsArray={optionsArray}
-        handleChange={(event) => setType(event.target.value)}
+        onChange={(event) => setType(event.target.value)}
+        required={true}
       />
       <InputDescription
         placeholder={"Describe Your Card.."}

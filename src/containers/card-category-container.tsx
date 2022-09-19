@@ -14,6 +14,19 @@ interface IDragItem {
 export const CardCategoryContainer = memo(() => {
   const { cardsArray, setCards, sortValue } = useContext(CardContext);
 
+  const dropCard = useCallback(
+    (item: IDragItem, validStatus: string, newStatus: string) => {
+      for (let card of cardsArray) {
+        card.id === item.id &&
+          card.status === validStatus &&
+          (card.status = newStatus);
+      }
+      sortCards(sortValue, cardsArray);
+      setCards(cardsArray);
+    },
+    [cardsArray, setCards, sortValue]
+  );
+
   const [, req] = useDrop(
     () => ({
       accept: ItemType.CARD,
@@ -24,7 +37,7 @@ export const CardCategoryContainer = memo(() => {
         isOver: !!monitor.isOver(),
       }),
     }),
-    [cardsArray]
+    [cardsArray, dropCard]
   );
 
   const [, prog] = useDrop(
@@ -37,7 +50,7 @@ export const CardCategoryContainer = memo(() => {
         isOver: !!monitor.isOver(),
       }),
     }),
-    [cardsArray]
+    [cardsArray, dropCard]
   );
 
   const [, comp] = useDrop(
@@ -50,21 +63,7 @@ export const CardCategoryContainer = memo(() => {
         isOver: !!monitor.isOver(),
       }),
     }),
-    [cardsArray]
-  );
-
-  const dropCard = useCallback(
-    (item: IDragItem, validStatus: string, newStatus: string) => {
-      for (let card of cardsArray) {
-        card.id === item.id &&
-          card.status === validStatus &&
-          (card.status = newStatus);
-      }
-      console.log(sortValue, "drop");
-      sortCards(sortValue, cardsArray);
-      setCards(cardsArray);
-    },
-    [cardsArray, setCards, sortValue]
+    [cardsArray, dropCard]
   );
 
   return (

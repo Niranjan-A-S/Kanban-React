@@ -22,7 +22,7 @@ const StyledFormContainer = styled.div`
   margin: 20px 0;
   position: fixed;
   right: 0;
-  animation: moveInLeft 1s;
+  animation: moveInLeft .5s;
   background-color: #fff;
   z-index: 2;
 `;

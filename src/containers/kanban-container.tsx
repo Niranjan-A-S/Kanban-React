@@ -29,7 +29,6 @@ export const KanbanContainer = memo(() => {
 
   const prepareCards = useCallback(
     (data: ICardDetailsType[]) => {
-      console.log("prepareCards ", sortValue);
       sortCards(sortValue, data);
       setCardsArray(data);
     },
@@ -38,7 +37,6 @@ export const KanbanContainer = memo(() => {
 
   const onSort = useCallback(
     (value: string) => {
-      console.log("value ", value);
       setSortValue(value);
       sortCards(value, cardsArray);
     },
