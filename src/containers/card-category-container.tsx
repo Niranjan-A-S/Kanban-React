@@ -1,6 +1,6 @@
 import { useContext, memo, useCallback } from "react";
-import styled from "styled-components";
 import { useDrop } from "react-dnd";
+import styled from "styled-components";
 import { CardStates, ItemType } from "../types";
 import { CardContext } from "../context";
 import { Card } from "../components";

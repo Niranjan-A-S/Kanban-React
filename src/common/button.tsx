@@ -4,12 +4,17 @@ import styled from "styled-components";
 interface IButton {
   buttonName: string;
   handleClick?(event?: MouseEvent<HTMLButtonElement>): void;
+  className?: string;
 }
 
 export const Button = (props: IButton) => {
-  const { buttonName, handleClick } = props;
+  const { buttonName, handleClick, className } = props;
 
-  return <ButtonWrapper onClick={handleClick}>{buttonName}</ButtonWrapper>;
+  return (
+    <ButtonWrapper className={className} onClick={handleClick}>
+      {buttonName}
+    </ButtonWrapper>
+  );
 };
 
 const ButtonWrapper = styled.button`

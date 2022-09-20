@@ -13,3 +13,10 @@ export const theme = {
     bug: CardTypeColors.BUG,
   },
 };
+
+export const linkStyle = {
+  color: "#94D0CC   ",
+  height: "fit-content",
+  margin: "0 0 0 110px",
+  fontWeight: "bold",
+};

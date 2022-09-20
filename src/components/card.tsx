@@ -1,6 +1,9 @@
-import { memo } from "react";
-import styled from "styled-components";
+import { memo, useContext } from "react";
 import { useDrag } from "react-dnd";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+import { CardContext } from "../context";
+import { linkStyle } from "../styles";
 import { ICardDetailsType, ItemType } from "../types";
 
 interface ICard {
@@ -12,7 +15,9 @@ export const Card = memo((props: ICard) => {
     item: { avatar, id, name, priority, description, type, status },
   } = props;
 
-  const [, drag] = useDrag(() => ({
+  const { cardsArray } = useContext(CardContext);
+
+  const [{ isDragging }, drag] = useDrag(() => ({
     item: { id, status },
     type: ItemType.CARD,
     collect: (monitor) => ({
@@ -21,11 +26,19 @@ export const Card = memo((props: ICard) => {
   }));
 
   return (
-    <CardWrapper ref={drag} type={type} key={id}>
+    <CardWrapper
+      ref={drag}
+      type={type}
+      key={id}
+      style={isDragging ? {} : { color: "black" }}
+    >
       <CardAvatar src={avatar} />
       <CardName children={name} />
       <CardDescription children={description} />
       <CardPriority required children={`Priority : ${priority}`} type={type} />
+      <Link style={linkStyle} to="card-info" state={{ id, cardsArray }}>
+        Details
+      </Link>
     </CardWrapper>
   );
 });
@@ -41,8 +54,7 @@ const CardWrapper = styled.div<{ type: string }>`
   gap: 15px;
   box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
     rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
-  border-left: ${({ theme, type }) => theme.cardTypeColors[type]} solid;
-  border-width: 7px;
+  border-left: 7px ${({ theme, type }) => theme.cardTypeColors[type]} solid;
 `;
 
 const CardAvatar = styled.img`
@@ -54,19 +66,20 @@ const CardAvatar = styled.img`
 const CardName = styled.p`
   font-size: 25px;
   font-weight: 600;
-  margin-top: 10px;
+  height: fit-content;
+  align-self: baseline;
+  padding: 10px 20px;
 `;
 
 const CardDescription = styled.p`
-  display: -webkit-box;
+  display: inline-block;
   text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
   overflow: hidden;
   -webkit-line-clamp: 4;
   word-wrap: break-word;
-  max-width: 270px;
-  min-height: 20px;
-  max-height: 130px;
-  -webkit-box-orient: vertical;
+  height: 80px;
+  width: 100%;
   margin: auto 0;
 `;
 
@@ -74,6 +87,5 @@ const CardPriority = styled.p<{ type: string; required: true }>`
   font-weight: 600;
   font-size: 15px;
   height: fit-content;
-  align-self: flex-end;
   color: ${({ theme, type }) => theme.cardTypeColors[type]};
 `;

@@ -1,11 +1,11 @@
 import { createGlobalStyle } from "styled-components";
 
-const GlobalStyles = createGlobalStyle`
+export const GlobalStyles = createGlobalStyle`
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
+  }
 
 body {
   font-family: Inter, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
@@ -19,10 +19,7 @@ button {
   cursor: pointer;
 }
 
-animate{
-  animation:moveInRight 1s;
-  background-color:black;
-}
+
   
 @keyframes moveInLeft {
   0% {
@@ -47,5 +44,3 @@ animate{
   }
 }
 `;
-
-export default GlobalStyles;

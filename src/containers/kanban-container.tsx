@@ -1,16 +1,10 @@
 import { memo, useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
-import {
-  CardCategoryContainer,
-  FormContainer,
-  Toolbar,
-  OverlayContainer,
-  LoaderContainer,
-} from "../containers";
-import GlobalStyles from "../styles/globalStyle";
+import { CardCategoryContainer, FormContainer, Toolbar } from "../containers";
 import { CardSortCriterion, ICardDetailsType } from "../types";
 import { sortCards } from "../common";
 import { CardContext } from "../context";
+import { GlobalStyles } from "../styles";
 
 export const KanbanContainer = memo(() => {
   const [cardsArray, setCardsArray] = useState<ICardDetailsType[]>([]);
@@ -58,9 +52,12 @@ export const KanbanContainer = memo(() => {
           setDisplay: setDisplay,
         }}
       >
-        <OverlayContainer display={display} />
+        {display && <OverlayContainer />}
         {loading ? (
-          <LoaderContainer />
+          <LoaderContainer>
+            <LoadingTitle children="Loading..." />
+            <Spinner />
+          </LoaderContainer>
         ) : (
           <Container>
             <GlobalStyles />
@@ -94,4 +91,53 @@ const CardBoardWrapper = styled.div`
   justify-content: space-between;
   width: 100%;
   padding: 50px;
+`;
+
+const OverlayContainer = styled.div`
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+`;
+
+const LoadingTitle = styled.h1<{ children: string }>`
+  color: #fff;
+  margin-right: 30px;
+`;
+
+const LoaderContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 1;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+`;
+
+const Spinner = styled.div`
+  width: 70px;
+  height: 70px;
+  border: 3px solid;
+  border-color: #fff transparent #4b7be5 transparent;
+  border-radius: 100%;
+  animation: spin-anim 1.2s linear infinite;
+  @keyframes spin-anim {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
 `;
