@@ -1,4 +1,10 @@
-import { FormEvent, useContext, useState, MouseEvent } from "react";
+import {
+  FormEvent,
+  useContext,
+  useState,
+  MouseEvent,
+  useCallback,
+} from "react";
 import styled from "styled-components";
 import { CardContext } from "../context";
 import {
@@ -38,28 +44,40 @@ export const AddCardForm = () => {
   const [type, setType] = useState<string>("");
   const [description, setDescription] = useState<string>("");
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const handleSubmit = useCallback(
+    (event: FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
 
-    let newCardsArray: ICardDetailsType[] = [
-      ...cardsArray,
-      {
-        name: name,
-        avatar: "https://i.pravatar.cc/300",
-        description: description,
-        priority: priority,
-        type: type,
-        status: "requested",
-        id: cardsArray.length + 1,
-      },
-    ];
+      let newCardsArray: ICardDetailsType[] = [
+        ...cardsArray,
+        {
+          name: name,
+          avatar: "/images/user.png",
+          description: description,
+          priority: priority,
+          type: type,
+          status: "requested",
+          id: cardsArray.length + 1,
+        },
+      ];
 
-    sortCards(sortValue, newCardsArray);
+      sortCards(sortValue, newCardsArray);
 
-    setCards(newCardsArray);
+      setCards(newCardsArray);
 
-    setDisplay(false);
-  };
+      setDisplay(false);
+    },
+    [
+      cardsArray,
+      description,
+      name,
+      priority,
+      setCards,
+      setDisplay,
+      sortValue,
+      type,
+    ]
+  );
 
   const hideFormOnClick = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -108,5 +126,10 @@ const FormWrapper = styled.form`
   padding: 1rem;
   width: 525px;
   flex-wrap: wrap;
-  justify-content: flex-end; ;
+  position: fixed;
+  right: 0;
+  animation: moveInLeft 0.8s;
+  background-color: #fff;
+  z-index: 2;
+  justify-content: flex-end;
 `;

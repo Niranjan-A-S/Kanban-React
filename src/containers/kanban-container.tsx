@@ -1,10 +1,12 @@
 import { memo, useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
-import { CardCategoryContainer, FormContainer, Toolbar } from "../containers";
+import { CardCategoryContainer, Toolbar } from "../containers";
 import { CardSortCriterion, ICardDetailsType } from "../types";
 import { sortCards } from "../common";
-import { CardContext } from "../context";
 import { GlobalStyles } from "../styles";
+import { Link } from "react-router-dom";
+import { CardContext } from "../context";
+import { AddCardForm } from "../components";
 
 export const KanbanContainer = memo(() => {
   const [cardsArray, setCardsArray] = useState<ICardDetailsType[]>([]);
@@ -42,7 +44,7 @@ export const KanbanContainer = memo(() => {
   );
 
   return (
-    <div>
+    <>
       <CardContext.Provider
         value={{
           cardsArray: cardsArray,
@@ -61,16 +63,21 @@ export const KanbanContainer = memo(() => {
         ) : (
           <Container>
             <GlobalStyles />
-            <TitleWrapper>Kanban Board</TitleWrapper>
+            <Header>
+              <Title>Kanban Board</Title>
+              <Link to={"profile"}>
+                <UserProfile src="https://cdn-icons-png.flaticon.com/128/149/149071.png" />
+              </Link>
+            </Header>
             <Toolbar />
-            {display && <FormContainer />}
+            {display && <AddCardForm />}
             <CardBoardWrapper>
               <CardCategoryContainer />
             </CardBoardWrapper>
           </Container>
         )}
       </CardContext.Provider>
-    </div>
+    </>
   );
 });
 
@@ -79,10 +86,22 @@ const Container = styled.div`
   margin: 0;
 `;
 
-const TitleWrapper = styled.h1`
+const Header = styled.div`
+  display: grid;
+  grid-template-columns: 92% 8%;
+`;
+
+const Title = styled.span`
   color: #4b7be5;
   font-size: 30px;
   text-align: center;
+  margin: 20px 0;
+  font-weight: bolder;
+`;
+
+const UserProfile = styled.img`
+  height: 60px;
+  width: 60px;
   margin: 20px 0;
 `;
 

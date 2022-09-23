@@ -28,6 +28,7 @@ export const Toolbar = () => {
   return (
     <ToolbarContainer>
       <Button buttonName="Add Task" handleClick={displayFormOnClick} />
+
       <SelectField
         sortValue={sortValue}
         optionsArray={optionsArray}
@@ -42,4 +43,5 @@ const ToolbarContainer = styled.div`
   justify-content: space-between;
   align-items: baseline;
   margin: 20px 50px;
+  height: fit-content;
 `;

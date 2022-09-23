@@ -1,8 +1,7 @@
-import { memo, useContext } from "react";
+import { memo } from "react";
 import { useDrag } from "react-dnd";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { CardContext } from "../context";
 import { linkStyle } from "../styles";
 import { ICardDetailsType, ItemType } from "../types";
 
@@ -14,8 +13,6 @@ export const Card = memo((props: ICard) => {
   const {
     item: { avatar, id, name, priority, description, type, status },
   } = props;
-
-  const { cardsArray } = useContext(CardContext);
 
   const [{ isDragging }, drag] = useDrag(() => ({
     item: { id, status },
@@ -36,7 +33,11 @@ export const Card = memo((props: ICard) => {
       <CardName children={name} />
       <CardDescription children={description} />
       <CardPriority required children={`Priority : ${priority}`} type={type} />
-      <Link style={linkStyle} to="card-info" state={{ id, cardsArray }}>
+      <Link
+        style={linkStyle}
+        to={`/kanban-board/card-info/${id}`}
+        state={{ id, avatar, name, description, type, priority, status }}
+      >
         Details
       </Link>
     </CardWrapper>

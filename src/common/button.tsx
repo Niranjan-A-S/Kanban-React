@@ -23,4 +23,5 @@ const ButtonWrapper = styled.button`
   border: none;
   padding: 7px 15px;
   font-size: 17px;
+  width: 120px;
 `;

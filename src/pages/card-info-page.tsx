@@ -1,40 +1,36 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { Button } from "../common";
 import { GlobalStyles } from "../styles";
-import { ICardDetailsType } from "../types";
 
 export const CardInfo = () => {
+  const navigate = useNavigate();
+
   const {
-    state: { id, cardsArray },
+    state: { avatar, name, description, type, priority, status },
   } = useLocation();
 
   return (
     <>
       <GlobalStyles />
       <CardInfoWrapper>
-        {cardsArray.map(
-          (card: ICardDetailsType) =>
-            id === card.id && (
-              <>
-                <CardAvatar src={card.avatar} />
-                <p>
-                  Name : <CardDetails>{card.name}</CardDetails>{" "}
-                </p>
-                <p>
-                  Description : <CardDetails>{card.description}</CardDetails>
-                </p>
-                <p>
-                  Priority: <CardDetails>{card.priority}</CardDetails>{" "}
-                </p>
-                <p>
-                  Status : <CardDetails>{card.status}</CardDetails>
-                </p>
-                <p>
-                  Type : <CardDetails>{card.type}</CardDetails>
-                </p>
-              </>
-            )
-        )}
+        <CardAvatar src={avatar} />
+        <p>
+          Name : <CardDetails>{name}</CardDetails>
+        </p>
+        <p>
+          Description : <CardDetails>{description}</CardDetails>
+        </p>
+        <p>
+          Priority: <CardDetails>{priority}</CardDetails>
+        </p>
+        <p>
+          Status : <CardDetails>{status}</CardDetails>
+        </p>
+        <p>
+          Type : <CardDetails>{type}</CardDetails>
+        </p>
+        <Button buttonName={"Go Back"} handleClick={() => navigate(-1)} />{" "}
       </CardInfoWrapper>
     </>
   );
