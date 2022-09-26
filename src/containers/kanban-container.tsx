@@ -1,10 +1,11 @@
 import { memo, useCallback, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
+import axios from "axios";
 import { CardCategoryContainer, Toolbar } from "../containers";
 import { CardSortCriterion, ICardDetailsType } from "../types";
 import { sortCards } from "../common";
 import { GlobalStyles } from "../styles";
-import { Link } from "react-router-dom";
 import { CardContext } from "../context";
 import { AddCardForm } from "../components";
 
@@ -18,11 +19,11 @@ export const KanbanContainer = memo(() => {
   );
 
   useEffect(() => {
-    fetch("https://6319a5318e51a64d2be8c353.mockapi.io/card")
-      .then((cardData) => cardData.json())
-      .then((cardsArray) => {
+    axios
+      .get("https://6319a5318e51a64d2be8c353.mockapi.io/card")
+      .then((response) => {
         setLoading(false);
-        prepareCards(cardsArray);
+        prepareCards(response.data);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
