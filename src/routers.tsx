@@ -1,5 +1,5 @@
 import { Routes, Route, BrowserRouter, Navigate } from "react-router-dom";
-import { KanbanBoard, CardInfo, UserProfile, NoMatch } from "./pages";
+import { CardInfo, UserProfile, NoMatch, KanbanPage } from "./pages";
 
 export const Routers = () => {
   return (
@@ -7,7 +7,7 @@ export const Routers = () => {
       <Routes>
         <Route path="/" element={<Navigate to={"kanban-board"} />} />
         <Route path="kanban-board">
-          <Route index element={<KanbanBoard />} />
+          <Route index element={<KanbanPage />} />
           <Route path="card-info/:id" element={<CardInfo />} />
           <Route path="profile">
             <Route index element={<UserProfile />} />

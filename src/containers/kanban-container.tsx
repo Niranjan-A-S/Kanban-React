@@ -3,17 +3,17 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 import { CardCategoryContainer, Toolbar } from "../containers";
-import { CardSortCriterion, ICardDetailsType } from "../types";
 import { sortCards } from "../common";
 import { GlobalStyles } from "../styles";
 import { CardContext } from "../context";
 import { AddCardForm } from "../components";
+import { CardSortCriterion } from "../enums";
+import { ICardDetailsType } from "../types";
 
 export const KanbanContainer = memo(() => {
   const [cardsArray, setCardsArray] = useState<ICardDetailsType[]>([]);
   const [display, setDisplay] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
-
   const [sortValue, setSortValue] = useState<string>(
     CardSortCriterion.HIGHTOLOW
   );
@@ -62,7 +62,7 @@ export const KanbanContainer = memo(() => {
             <Spinner />
           </LoaderContainer>
         ) : (
-          <Container>
+          <KanbanContainerWrapper>
             <GlobalStyles />
             <Header>
               <Title>Kanban Board</Title>
@@ -75,14 +75,14 @@ export const KanbanContainer = memo(() => {
             <CardBoardWrapper>
               <CardCategoryContainer />
             </CardBoardWrapper>
-          </Container>
+          </KanbanContainerWrapper>
         )}
       </CardContext.Provider>
     </>
   );
 });
 
-const Container = styled.div`
+const KanbanContainerWrapper = styled.div`
   position: relative;
   margin: 0;
 `;

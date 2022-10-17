@@ -1,5 +1,5 @@
 import ReactDOM from "react-dom/client";
-import { Routers } from "./routes";
+import { Routers } from "./routers";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement

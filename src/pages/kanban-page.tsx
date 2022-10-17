@@ -4,7 +4,7 @@ import { ThemeProvider } from "styled-components";
 import { theme } from "../styles/theme";
 import { KanbanContainer } from "../containers";
 
-export const KanbanBoard = () => (
+export const KanbanPage = () => (
   <DndProvider backend={HTML5Backend}>
     <ThemeProvider theme={theme}>
       <KanbanContainer />
