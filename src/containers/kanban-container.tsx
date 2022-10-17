@@ -1,21 +1,20 @@
 import { memo, useCallback, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
-import { CardCategoryContainer, Toolbar } from "../containers";
-import { sortCards } from "../common";
+import { CardCategory, Toolbar } from "../containers";
 import { GlobalStyles } from "../styles";
 import { CardContext } from "../context";
-import { AddCardForm } from "../components";
+import { AddCardForm, Loader } from "../components";
 import { CardSortCriterion } from "../enums";
 import { ICardDetailsType } from "../types";
+import { sortCards } from "../utils";
 
-export const KanbanContainer = memo(() => {
+export const KanbanBoard = memo(() => {
   const [cardsArray, setCardsArray] = useState<ICardDetailsType[]>([]);
   const [display, setDisplay] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
   const [sortValue, setSortValue] = useState<string>(
-    CardSortCriterion.HIGHTOLOW
+    CardSortCriterion.HIGH_TO_LOW
   );
 
   useEffect(() => {
@@ -57,56 +56,35 @@ export const KanbanContainer = memo(() => {
       >
         {display && <OverlayContainer />}
         {loading ? (
-          <LoaderContainer>
-            <LoadingTitle children="Loading..." />
-            <Spinner />
-          </LoaderContainer>
+          <Loader />
         ) : (
-          <KanbanContainerWrapper>
+          <KanbanBoardWrapper>
             <GlobalStyles />
-            <Header>
-              <Title>Kanban Board</Title>
-              <Link to={"profile"}>
-                <UserProfile src="https://cdn-icons-png.flaticon.com/128/149/149071.png" />
-              </Link>
-            </Header>
+            <Title children={"Kanban Board"} />
             <Toolbar />
             {display && <AddCardForm />}
-            <CardBoardWrapper>
-              <CardCategoryContainer />
-            </CardBoardWrapper>
-          </KanbanContainerWrapper>
+            <CategoryWrapper>
+              <CardCategory />
+            </CategoryWrapper>
+          </KanbanBoardWrapper>
         )}
       </CardContext.Provider>
     </>
   );
 });
 
-const KanbanContainerWrapper = styled.div`
+const KanbanBoardWrapper = styled.div`
   position: relative;
   margin: 0;
 `;
 
-const Header = styled.div`
-  display: grid;
-  grid-template-columns: 92% 8%;
-`;
-
-const Title = styled.span`
+const Title = styled.h1`
   color: #4b7be5;
-  font-size: 30px;
   text-align: center;
-  margin: 20px 0;
   font-weight: bolder;
 `;
 
-const UserProfile = styled.img`
-  height: 60px;
-  width: 60px;
-  margin: 20px 0;
-`;
-
-const CardBoardWrapper = styled.div`
+const CategoryWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -118,46 +96,5 @@ const OverlayContainer = styled.div`
   width: 100%;
   height: 100%;
   z-index: 1;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
   background-color: rgba(0, 0, 0, 0.7);
-`;
-
-const LoadingTitle = styled.h1<{ children: string }>`
-  color: #fff;
-  margin-right: 30px;
-`;
-
-const LoaderContainer = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  background: rgba(0, 0, 0, 0.8);
-  z-index: 1;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-`;
-
-const Spinner = styled.div`
-  width: 70px;
-  height: 70px;
-  border: 3px solid;
-  border-color: #fff transparent #4b7be5 transparent;
-  border-radius: 100%;
-  animation: spin-anim 1.2s linear infinite;
-  @keyframes spin-anim {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
 `;

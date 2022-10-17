@@ -1,6 +1,6 @@
 import { useNavigate, useSearchParams } from "react-router-dom";
 import styled from "styled-components";
-import { Button, Fallback } from "../common";
+import { Button, Fallback } from "../components/common";
 import { GlobalStyles } from "../styles";
 
 export const UserProfile = () => {
@@ -31,7 +31,7 @@ export const UserProfile = () => {
         ) : (
           <Fallback name={"User"} statement={"does not exist"} />
         )}
-        <Button buttonName={"Go Back"} handleClick={() => navigate(-1)} />{" "}
+        <Button buttonName={"Go Back"} onClick={() => navigate(-1)} />{" "}
       </UserProfileWrapper>
     </>
   );

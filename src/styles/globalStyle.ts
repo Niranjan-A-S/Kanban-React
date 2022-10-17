@@ -8,9 +8,7 @@ export const GlobalStyles = createGlobalStyle`
   }
 
 body {
-  font-family: Inter, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
-    Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-sans;
-  font-style: inter;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   margin:0;
   padding:0;
 }

@@ -1,4 +1,4 @@
-import { ChangeEvent } from "react";
+import { ChangeEventHandler } from "react";
 import styled from "styled-components";
 
 interface IOptions {
@@ -9,19 +9,15 @@ interface IOptions {
 interface ISelectField {
   sortValue?: string;
   optionsArray: Array<IOptions>;
-  onChange(event: ChangeEvent<HTMLSelectElement>): void;
+  onChange: ChangeEventHandler<HTMLSelectElement>;
   required?: boolean;
 }
 
 export const SelectField = (props: ISelectField) => {
-  const { optionsArray, onChange, sortValue, required } = props;
+  const { optionsArray, onChange, sortValue } = props;
 
   return (
-    <SelectFieldWrapper
-      required={required}
-      value={sortValue}
-      onChange={onChange}
-    >
+    <SelectFieldWrapper required value={sortValue} onChange={onChange}>
       {optionsArray.map((option) => (
         <option key={option.value} value={option.value}>
           {option.label}
@@ -32,9 +28,8 @@ export const SelectField = (props: ISelectField) => {
 };
 
 const SelectFieldWrapper = styled.select`
-  width: 155px;
   height: 30px;
-  border: solid black;
-  border-width: 1px;
+  border: 1px solid black;
+  width: 110px;
   font-size: 16px;
 `;

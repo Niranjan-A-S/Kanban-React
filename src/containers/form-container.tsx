@@ -4,45 +4,45 @@ import {
   useState,
   MouseEvent,
   useCallback,
+  useMemo,
 } from "react";
 import styled from "styled-components";
-import { CardContext } from "../context";
-import {
-  Button,
-  InputField,
-  SelectField,
-  InputDescription,
-  sortCards,
-} from "../common";
-import { ICardDetailsType } from "../types";
 
-const optionsArray = [
-  {
-    label: "*Type",
-    value: "",
-  },
-  {
-    label: "Enhancement",
-    value: "enhancement",
-  },
-  {
-    label: "Feature",
-    value: "feature",
-  },
-  {
-    label: "Bug",
-    value: "bug",
-  },
-];
+import { CardContext } from "../context";
+import { Button, SelectField } from "../components/common";
+import { ICardDetailsType } from "../types";
+import { sortCards } from "../utils";
 
 export const AddCardForm = () => {
   const { cardsArray, setCards, setDisplay, sortValue } =
     useContext(CardContext);
 
   const [name, setName] = useState<string>("");
-  const [priority, setPriority] = useState<any>();
+  const [priority, setPriority] = useState<number>(0);
   const [type, setType] = useState<string>("");
   const [description, setDescription] = useState<string>("");
+
+  const optionsArray = useMemo(
+    () => [
+      {
+        label: "*Type",
+        value: "",
+      },
+      {
+        label: "Enhancement",
+        value: "enhancement",
+      },
+      {
+        label: "Feature",
+        value: "feature",
+      },
+      {
+        label: "Bug",
+        value: "bug",
+      },
+    ],
+    []
+  );
 
   const handleSubmit = useCallback(
     (event: FormEvent<HTMLFormElement>) => {
@@ -51,11 +51,11 @@ export const AddCardForm = () => {
       let newCardsArray: ICardDetailsType[] = [
         ...cardsArray,
         {
-          name: name,
+          name,
           avatar: "/images/user.png",
-          description: description,
-          priority: priority,
-          type: type,
+          description,
+          priority,
+          type,
           status: "requested",
           id: cardsArray.length + 1,
         },
@@ -89,7 +89,7 @@ export const AddCardForm = () => {
       <InputField
         type="text"
         placeholder="*Name"
-        required={true}
+        required
         maxLength={15}
         minLength={3}
         value={name}
@@ -98,7 +98,7 @@ export const AddCardForm = () => {
       <InputField
         type="number"
         placeholder="*Priority"
-        required={true}
+        required
         max={100}
         min={0}
         value={priority}
@@ -107,14 +107,14 @@ export const AddCardForm = () => {
       <SelectField
         optionsArray={optionsArray}
         onChange={(event) => setType(event.target.value)}
-        required={true}
+        required
       />
-      <InputDescription
+      <TextArea
         placeholder={"Describe Your Card.."}
         value={description}
         onChange={(event) => setDescription(event.target.value)}
       />
-      <Button buttonName="Cancel" handleClick={hideFormOnClick} />
+      <Button buttonName="Cancel" onClick={hideFormOnClick} />
       <Button buttonName="Save" />
     </FormWrapper>
   );
@@ -122,14 +122,31 @@ export const AddCardForm = () => {
 
 const FormWrapper = styled.form`
   display: flex;
-  gap: 1rem;
-  padding: 1rem;
-  width: 525px;
+  flex-direction: row;
+  gap: 10px;
   flex-wrap: wrap;
+  width: 500px;
+  padding: 20px;
   position: fixed;
   right: 0;
   animation: moveInLeft 0.8s;
   background-color: #fff;
   z-index: 2;
-  justify-content: flex-end;
+`;
+
+const InputField = styled.input`
+  padding: 5px;
+  border: solid black;
+  font-size: 20px;
+  border-width: 1px;
+  width: 35.5%;
+`;
+
+const TextArea = styled.textarea`
+  border: solid black;
+  border-width: 1px;
+  font-size: 16px;
+  resize: none;
+  width: 100%;
+  height: 80px;
 `;

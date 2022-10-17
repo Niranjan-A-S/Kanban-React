@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { Button, Fallback } from "../common";
+import { Button, Fallback } from "../components/common";
 
 export const NoMatch = () => {
   const navigate = useNavigate();
@@ -8,7 +8,7 @@ export const NoMatch = () => {
   return (
     <NoMatchPageWrapper>
       <Fallback name={"Page"} statement={"not found!"} />
-      <Button buttonName={"Go Back"} handleClick={() => navigate(-1)} />{" "}
+      <Button buttonName={"Go Back"} onClick={() => navigate(-1)} />{" "}
     </NoMatchPageWrapper>
   );
 };

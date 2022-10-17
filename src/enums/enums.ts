@@ -17,8 +17,8 @@ export enum CardTypeColors {
 }
 
 export enum CardSortCriterion {
-  HIGHTOLOW = "highToLow",
-  LOWTOHIGH = "lowToHigh",
+  HIGH_TO_LOW = "highToLow",
+  LOW_TO_HIGH = "lowToHigh",
 }
 
 export const ItemType = {

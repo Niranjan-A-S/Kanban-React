@@ -3,15 +3,15 @@ import { useDrop } from "react-dnd";
 import styled from "styled-components";
 import { CardContext } from "../context";
 import { Card } from "../components";
-import { sortCards } from "../common";
 import { CardStates, ItemType } from "../enums";
+import { sortCards } from "../utils";
 
 interface IDragItem {
   id: number;
   status: string;
 }
 
-export const CardCategoryContainer = memo(() => {
+export const CardCategory = memo(() => {
   const { cardsArray, setCards, sortValue } = useContext(CardContext);
 
   const dropCard = useCallback(
@@ -29,7 +29,7 @@ export const CardCategoryContainer = memo(() => {
     [cardsArray, setCards, sortValue]
   );
 
-  const [, req] = useDrop(
+  const [, requested] = useDrop(
     () => ({
       accept: ItemType.CARD,
       drop: (item: IDragItem, monitor) => {
@@ -42,7 +42,7 @@ export const CardCategoryContainer = memo(() => {
     [cardsArray, dropCard]
   );
 
-  const [, prog] = useDrop(
+  const [, inProgress] = useDrop(
     () => ({
       accept: ItemType.CARD,
       drop: (item: IDragItem, monitor) => {
@@ -55,7 +55,7 @@ export const CardCategoryContainer = memo(() => {
     [cardsArray, dropCard]
   );
 
-  const [, comp] = useDrop(
+  const [, completed] = useDrop(
     () => ({
       accept: ItemType.CARD,
       drop: (item: IDragItem, monitor) => {
@@ -70,25 +70,19 @@ export const CardCategoryContainer = memo(() => {
 
   return (
     <>
-      <CardCategoryContainerWrapper category="requested">
-        <CardCategoryTitle
-          children={CardStates.REQUESTED}
-          category="requested"
-        />
-        <CardsContainer category="requested" ref={req}>
+      <CardCategoryWrapper category="requested">
+        <Title children={CardStates.REQUESTED} category="requested" />
+        <CardsList category="requested" ref={requested}>
           {cardsArray?.map((card) => {
             return (
               card.status === "requested" && <Card key={card.id} item={card} />
             );
           })}
-        </CardsContainer>
-      </CardCategoryContainerWrapper>
-      <CardCategoryContainerWrapper category="inProgress">
-        <CardCategoryTitle
-          children={CardStates.INPROGRESS}
-          category="inProgress"
-        />
-        <CardsContainer category="inProgress" ref={prog}>
+        </CardsList>
+      </CardCategoryWrapper>
+      <CardCategoryWrapper category="inProgress">
+        <Title children={CardStates.INPROGRESS} category="inProgress" />
+        <CardsList category="inProgress" ref={inProgress}>
           {cardsArray?.map((card) => {
             return (
               card.status === "in-progress" && (
@@ -96,26 +90,23 @@ export const CardCategoryContainer = memo(() => {
               )
             );
           })}
-        </CardsContainer>
-      </CardCategoryContainerWrapper>
-      <CardCategoryContainerWrapper category="completed">
-        <CardCategoryTitle
-          children={CardStates.COMPLETED}
-          category="completed"
-        />
-        <CardsContainer category="completed" ref={comp}>
+        </CardsList>
+      </CardCategoryWrapper>
+      <CardCategoryWrapper category="completed">
+        <Title children={CardStates.COMPLETED} category="completed" />
+        <CardsList category="completed" ref={completed}>
           {cardsArray?.map((card) => {
             return (
               card.status === "completed" && <Card key={card.id} item={card} />
             );
           })}
-        </CardsContainer>
-      </CardCategoryContainerWrapper>
+        </CardsList>
+      </CardCategoryWrapper>
     </>
   );
 });
 
-const CardCategoryContainerWrapper = styled.div<{ category: string }>`
+const CardCategoryWrapper = styled.div<{ category: string }>`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -123,7 +114,7 @@ const CardCategoryContainerWrapper = styled.div<{ category: string }>`
     4px;
 `;
 
-const CardCategoryTitle = styled.h1<{ children: string; category: string }>`
+const Title = styled.h1<{ children: string; category: string }>`
   width: 100%;
   text-align: center;
   text-transform: uppercase;
@@ -134,7 +125,7 @@ const CardCategoryTitle = styled.h1<{ children: string; category: string }>`
   background-color: ${({ theme, category }) => theme.categoryColors[category]};
 `;
 
-const CardsContainer = styled.div<{ category: string }>`
+const CardsList = styled.div<{ category: string }>`
   padding: 30px;
   height: 700px;
   align-items: center;

@@ -1,9 +1,9 @@
-import { memo } from "react";
+import { memo, useMemo } from "react";
 import { useDrag } from "react-dnd";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+
 import { ItemType } from "../enums";
-import { linkStyle } from "../styles";
 import { ICardDetailsType } from "../types";
 
 interface ICard {
@@ -22,6 +22,15 @@ export const Card = memo((props: ICard) => {
       isDragging: !!monitor.isDragging(),
     }),
   }));
+
+  const linkStyle = useMemo(() => {
+    return {
+      color: "#94D0CC   ",
+      height: "fit-content",
+      margin: "0 0 0 110px",
+      fontWeight: "bold",
+    };
+  }, []);
 
   return (
     <CardWrapper

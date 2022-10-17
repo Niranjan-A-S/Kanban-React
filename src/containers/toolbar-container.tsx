@@ -1,18 +1,8 @@
-import { ChangeEvent, useContext } from "react";
+import { ChangeEvent, useContext, useMemo } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { Button, SelectField } from "../common";
+import { Button, SelectField } from "../components/common";
 import { CardContext } from "../context";
-
-const optionsArray = [
-  {
-    label: "High to Low",
-    value: "highToLow",
-  },
-  {
-    label: "Low To High",
-    value: "lowToHigh",
-  },
-];
 
 export const Toolbar = () => {
   const { onSort, setDisplay, sortValue } = useContext(CardContext);
@@ -25,23 +15,45 @@ export const Toolbar = () => {
     setDisplay(true);
   };
 
+  const optionsArray = useMemo(
+    () => [
+      {
+        label: "High to Low",
+        value: "highToLow",
+      },
+      {
+        label: "Low To High",
+        value: "lowToHigh",
+      },
+    ],
+    []
+  );
+
   return (
     <ToolbarContainer>
-      <Button buttonName="Add Task" handleClick={displayFormOnClick} />
+      <Button buttonName="Add Task" onClick={displayFormOnClick} />
 
       <SelectField
         sortValue={sortValue}
         optionsArray={optionsArray}
         onChange={handleChange}
       />
+
+      <Link style={{ width: "fit-content" }} to={"profile"}>
+        <UserProfile src="https://cdn-icons-png.flaticon.com/128/149/149071.png" />
+      </Link>
     </ToolbarContainer>
   );
 };
 
 const ToolbarContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin: 20px 50px;
-  height: fit-content;
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: 10% 85% 5%;
+  padding: 0 50px;
+`;
+
+const UserProfile = styled.img`
+  height: 60px;
+  width: 60px;
 `;

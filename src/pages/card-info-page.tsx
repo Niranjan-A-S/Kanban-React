@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { Button } from "../common";
+import { Button } from "../components/common";
 import { GlobalStyles } from "../styles";
 
 export const CardInfo = () => {
@@ -30,7 +30,7 @@ export const CardInfo = () => {
         <p>
           Type : <CardDetails>{type}</CardDetails>
         </p>
-        <Button buttonName={"Go Back"} handleClick={() => navigate(-1)} />{" "}
+        <Button buttonName={"Go Back"} onClick={() => navigate(-1)} />{" "}
       </CardInfoWrapper>
     </>
   );
