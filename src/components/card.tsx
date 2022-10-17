@@ -2,8 +2,9 @@ import { memo } from "react";
 import { useDrag } from "react-dnd";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { ItemType } from "../enums";
 import { linkStyle } from "../styles";
-import { ICardDetailsType, ItemType } from "../types";
+import { ICardDetailsType } from "../types";
 
 interface ICard {
   item: ICardDetailsType;

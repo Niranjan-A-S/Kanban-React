@@ -1,4 +1,5 @@
-import { ICardDetailsType, CardSortCriterion } from "../types";
+import { CardSortCriterion } from "../enums";
+import { ICardDetailsType } from "../types";
 
 export const sortCards = (
   sortValue: string,
