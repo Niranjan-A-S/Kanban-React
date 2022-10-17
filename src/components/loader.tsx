@@ -18,8 +18,7 @@ const LoaderContainer = styled.div`
   position: fixed;
   background: rgba(0, 0, 0, 0.8);
   z-index: 1;
-  margin: 0;
-  border: none;
+  margin: -10px 0 0 -10px;
 `;
 
 const Spinner = styled.div`

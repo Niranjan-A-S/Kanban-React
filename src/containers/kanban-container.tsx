@@ -47,11 +47,11 @@ export const KanbanBoard = memo(() => {
     <>
       <CardContext.Provider
         value={{
-          cardsArray: cardsArray,
-          setCards: setCardsArray,
-          sortValue: sortValue,
-          onSort: onSort,
-          setDisplay: setDisplay,
+          cardsArray,
+          setCardsArray,
+          sortValue,
+          onSort,
+          setDisplay,
         }}
       >
         {display && <OverlayContainer />}
@@ -82,6 +82,7 @@ const Title = styled.h1`
   color: #4b7be5;
   text-align: center;
   font-weight: bolder;
+  margin-top: 20px;
 `;
 
 const CategoryWrapper = styled.div`
@@ -96,5 +97,6 @@ const OverlayContainer = styled.div`
   width: 100%;
   height: 100%;
   z-index: 1;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.8);
+  margin-top: -20px;
 `;

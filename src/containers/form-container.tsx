@@ -14,7 +14,7 @@ import { ICardDetailsType } from "../types";
 import { sortCards } from "../utils";
 
 export const AddCardForm = () => {
-  const { cardsArray, setCards, setDisplay, sortValue } =
+  const { cardsArray, setCardsArray, setDisplay, sortValue } =
     useContext(CardContext);
 
   const [name, setName] = useState<string>("");
@@ -63,7 +63,7 @@ export const AddCardForm = () => {
 
       sortCards(sortValue, newCardsArray);
 
-      setCards(newCardsArray);
+      setCardsArray(newCardsArray);
 
       setDisplay(false);
     },
@@ -72,7 +72,7 @@ export const AddCardForm = () => {
       description,
       name,
       priority,
-      setCards,
+      setCardsArray,
       setDisplay,
       sortValue,
       type,

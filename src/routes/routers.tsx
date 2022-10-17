@@ -1,5 +1,5 @@
 import { Routes, Route, BrowserRouter, Navigate } from "react-router-dom";
-import { CardInfo, UserProfile, NoMatch, KanbanPage } from "./pages";
+import { CardInfo, UserProfile, NoMatch, KanbanPage } from "../pages";
 
 export const Routers = () => {
   return (

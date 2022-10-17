@@ -30,7 +30,7 @@ export const CardInfo = () => {
         <p>
           Type : <CardDetails>{type}</CardDetails>
         </p>
-        <Button buttonName={"Go Back"} onClick={() => navigate(-1)} />{" "}
+        <Button buttonName={"Go Back"} onClick={() => navigate(-1)} />
       </CardInfoWrapper>
     </>
   );

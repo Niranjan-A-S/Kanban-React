@@ -12,7 +12,7 @@ interface IDragItem {
 }
 
 export const CardCategory = memo(() => {
-  const { cardsArray, setCards, sortValue } = useContext(CardContext);
+  const { cardsArray, setCardsArray, sortValue } = useContext(CardContext);
 
   const dropCard = useCallback(
     (item: IDragItem, currentStatus: string, newStatus: string) => {
@@ -24,9 +24,9 @@ export const CardCategory = memo(() => {
       });
 
       sortCards(sortValue, cardsArray);
-      setCards(cardsArray);
+      setCardsArray(cardsArray);
     },
-    [cardsArray, setCards, sortValue]
+    [cardsArray, setCardsArray, sortValue]
   );
 
   const [, requested] = useDrop(

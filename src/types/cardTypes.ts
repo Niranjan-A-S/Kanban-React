@@ -10,7 +10,7 @@ export interface ICardDetailsType {
 
 export interface ICardContextType {
   cardsArray: ICardDetailsType[];
-  setCards: (data: ICardDetailsType[]) => void;
+  setCardsArray: (data: ICardDetailsType[]) => void;
   sortValue: string;
   onSort: (sortValue: string) => void;
   setDisplay: (displayForm: boolean) => void;

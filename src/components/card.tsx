@@ -15,7 +15,7 @@ export const Card = memo((props: ICard) => {
     item: { avatar, id, name, priority, description, type, status },
   } = props;
 
-  const [{ isDragging }, drag] = useDrag(() => ({
+  const [, drag] = useDrag(() => ({
     item: { id, status },
     type: ItemType.CARD,
     collect: (monitor) => ({
@@ -33,12 +33,7 @@ export const Card = memo((props: ICard) => {
   }, []);
 
   return (
-    <CardWrapper
-      ref={drag}
-      type={type}
-      key={id}
-      style={isDragging ? {} : { color: "black" }}
-    >
+    <CardWrapper ref={drag} type={type} key={id}>
       <CardAvatar src={avatar} />
       <CardName children={name} />
       <CardDescription children={description} />
@@ -89,7 +84,7 @@ const CardDescription = styled.p`
   overflow: hidden;
   -webkit-line-clamp: 4;
   word-wrap: break-word;
-  height: 80px;
+  height: 78px;
   width: 100%;
   margin: auto 0;
 `;
