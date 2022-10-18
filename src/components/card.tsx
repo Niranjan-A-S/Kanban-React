@@ -22,8 +22,6 @@ export const Card = memo((props: ICard) => {
     }),
   }));
 
-  const border = isDragging ? "2px solid black" : "";
-
   const linkStyle = useMemo(() => {
     return {
       color: "#94D0CC   ",
@@ -33,8 +31,18 @@ export const Card = memo((props: ICard) => {
     };
   }, []);
 
+  const borderStyle = useMemo(() => {
+    return isDragging
+      ? {
+          borderTop: "5px solid black",
+          borderRight: "5px solid black",
+          borderBottom: "5px solid black",
+        }
+      : {};
+  }, [isDragging]);
+
   return (
-    <CardWrapper ref={drag} type={type} key={id} style={{ border }}>
+    <CardWrapper ref={drag} type={type} key={id} style={borderStyle}>
       <CardAvatar src={avatar} />
       <CardName children={name} />
       <CardDescription children={description} />

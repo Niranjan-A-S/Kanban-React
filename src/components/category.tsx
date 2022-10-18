@@ -31,8 +31,7 @@ const CardCategoryContainerWrapper = styled.div<{ category: string }>`
   display: flex;
   flex-direction: column;
   align-items: center;
-  box-shadow: ${({ theme, category }) => theme.categoryColors[category]} 0px 2px
-    4px;
+  border: 1px solid ${({ theme, category }) => theme.categoryColors[category]};
 `;
 
 const Title = styled.h1<{ children: string; category: string }>`
@@ -43,6 +42,8 @@ const Title = styled.h1<{ children: string; category: string }>`
   padding: 5px 0;
   color: ${({ theme, category }) => theme.categoryColors[category]};
   background-color: #fff;
+  border-bottom: 1px solid
+    ${({ theme, category }) => theme.categoryColors[category]};
 `;
 
 const CardsList = styled.div<{ category: string }>`

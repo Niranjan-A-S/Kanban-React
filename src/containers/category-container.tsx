@@ -16,8 +16,6 @@ export const CategoryList = memo(() => {
 
   const dropCard = useCallback(
     (item: IDragItem, currentStatus: string, newStatus: string) => {
-      console.log("dragging");
-
       cardsArray.map((card) => {
         card.id === item.id &&
           card.status === currentStatus &&
