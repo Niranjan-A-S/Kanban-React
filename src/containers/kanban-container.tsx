@@ -1,16 +1,16 @@
 import { memo, useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
-import { CardCategory, Toolbar } from "../containers";
+import { CategoryList, Toolbar } from "../containers";
 import { GlobalStyles } from "../styles";
 import { CardContext } from "../context";
 import { AddCardForm, Loader } from "../components";
 import { CardSortCriterion } from "../enums";
-import { ICardDetailsType } from "../types";
+import { ICardDetails } from "../types";
 import { sortCards } from "../utils";
 
 export const KanbanBoard = memo(() => {
-  const [cardsArray, setCardsArray] = useState<ICardDetailsType[]>([]);
+  const [cardsArray, setCardsArray] = useState<ICardDetails[]>([]);
   const [display, setDisplay] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
   const [sortValue, setSortValue] = useState<string>(
@@ -28,7 +28,7 @@ export const KanbanBoard = memo(() => {
   }, []);
 
   const prepareCards = useCallback(
-    (data: ICardDetailsType[]) => {
+    (data: ICardDetails[]) => {
       sortCards(sortValue, data);
       setCardsArray(data);
     },
@@ -63,9 +63,7 @@ export const KanbanBoard = memo(() => {
             <Title children={"Kanban Board"} />
             <Toolbar />
             {display && <AddCardForm />}
-            <CategoryWrapper>
-              <CardCategory />
-            </CategoryWrapper>
+            <CategoryList />
           </KanbanBoardWrapper>
         )}
       </CardContext.Provider>
@@ -83,13 +81,6 @@ const Title = styled.h1`
   text-align: center;
   font-weight: bolder;
   margin-top: 20px;
-`;
-
-const CategoryWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  padding: 50px;
 `;
 
 const OverlayContainer = styled.div`

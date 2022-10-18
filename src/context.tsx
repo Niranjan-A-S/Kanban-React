@@ -1,7 +1,7 @@
 import { createContext } from "react";
-import { ICardContextType } from "./types";
+import { ICardContext } from "./types";
 
-export const CardContext = createContext<ICardContextType>({
+export const CardContext = createContext<ICardContext>({
   cardsArray: [],
   setCardsArray: () => {},
   sortValue: "",

@@ -2,12 +2,11 @@ import { memo, useMemo } from "react";
 import { useDrag } from "react-dnd";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-
 import { ItemType } from "../enums";
-import { ICardDetailsType } from "../types";
+import { ICardDetails } from "../types";
 
 interface ICard {
-  item: ICardDetailsType;
+  item: ICardDetails;
 }
 
 export const Card = memo((props: ICard) => {
@@ -15,13 +14,15 @@ export const Card = memo((props: ICard) => {
     item: { avatar, id, name, priority, description, type, status },
   } = props;
 
-  const [, drag] = useDrag(() => ({
+  const [{ isDragging }, drag] = useDrag(() => ({
     item: { id, status },
     type: ItemType.CARD,
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
     }),
   }));
+
+  const border = isDragging ? "2px solid black" : "";
 
   const linkStyle = useMemo(() => {
     return {
@@ -33,7 +34,7 @@ export const Card = memo((props: ICard) => {
   }, []);
 
   return (
-    <CardWrapper ref={drag} type={type} key={id}>
+    <CardWrapper ref={drag} type={type} key={id} style={{ border }}>
       <CardAvatar src={avatar} />
       <CardName children={name} />
       <CardDescription children={description} />

@@ -10,7 +10,7 @@ import styled from "styled-components";
 
 import { CardContext } from "../context";
 import { Button, SelectField } from "../components/common";
-import { ICardDetailsType } from "../types";
+import { ICardDetails } from "../types";
 import { sortCards } from "../utils";
 
 export const AddCardForm = () => {
@@ -48,7 +48,7 @@ export const AddCardForm = () => {
     (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault();
 
-      let newCardsArray: ICardDetailsType[] = [
+      let newCardsArray: ICardDetails[] = [
         ...cardsArray,
         {
           name,

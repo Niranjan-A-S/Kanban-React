@@ -1,4 +1,4 @@
-export interface ICardDetailsType {
+export interface ICardDetails {
   id: number;
   avatar: string;
   name: string;
@@ -8,9 +8,9 @@ export interface ICardDetailsType {
   status: string;
 }
 
-export interface ICardContextType {
-  cardsArray: ICardDetailsType[];
-  setCardsArray: (data: ICardDetailsType[]) => void;
+export interface ICardContext {
+  cardsArray: ICardDetails[];
+  setCardsArray: (data: ICardDetails[]) => void;
   sortValue: string;
   onSort: (sortValue: string) => void;
   setDisplay: (displayForm: boolean) => void;
