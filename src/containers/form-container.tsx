@@ -136,17 +136,16 @@ const FormWrapper = styled.form`
 
 const InputField = styled.input`
   padding: 5px;
-  border: solid black;
   font-size: 20px;
   border-width: 1px;
   width: 35.5%;
+  border: 1px solid #4b7be5;
 `;
 
 const TextArea = styled.textarea`
-  border: solid black;
-  border-width: 1px;
   font-size: 16px;
   resize: none;
   width: 100%;
   height: 80px;
+  border: 1px solid #4b7be5;
 `;
